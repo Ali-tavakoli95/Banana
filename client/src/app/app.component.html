@@ -1,0 +1,51 @@
+<form [formGroup]="userFg">
+    <label for="username">Name</label>
+    <input formControlName="nameCtrl" id="username" type="text">
+
+    <label for="email">Email</label>
+    <input formControlName="emailCtrl" id="email" type="email">
+
+    <label for="password">Password</label>
+    <input formControlName="passwordCtrl" id="password" type="password">
+
+    <label for="age">Age</label>
+    <input formControlName="ageCtrl" id="age" type="number">
+
+    <label for="isAdmin">Is user Admin?</label>
+    <input formControlName="isAdminCtrl" id="isAdmin" type="checkbox">
+</form>
+
+<button (click)="registerUser()">Register</button>
+
+<h5>{{userRes?.name}}</h5>
+<h5>{{userRes?.email}}</h5>
+<h5>{{userRes?.password}}</h5>
+<h5>{{userRes?.age}}</h5>
+<h5>{{userRes?.isAdmin}}</h5>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <button (click)="registerUser()">Create User</button>
+
+<form [formGroup]="registerFg" (ngSubmit)="registerUser()">
+    <label for="username">User Name</label>
+    <input name="username" type="text" formControlName="nameCtrl" placeholder="Enter your name">
+</form> -->
