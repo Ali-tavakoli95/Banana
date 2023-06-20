@@ -1,21 +1,28 @@
 <form [formGroup]="userFg">
-    <label for="username">Name</label>
-    <input formControlName="nameCtrl" id="username" type="text">
-
-    <label for="email">Email</label>
-    <input formControlName="emailCtrl" id="email" type="email">
-
-    <label for="password">Password</label>
-    <input formControlName="passwordCtrl" id="password" type="password">
-
-    <label for="age">Age</label>
-    <input formControlName="ageCtrl" id="age" type="number">
-
-    <label for="isAdmin">Is user Admin?</label>
-    <input formControlName="isAdminCtrl" id="isAdmin" type="checkbox">
+    <div>
+        <label for="username">Name</label>
+        <input formControlName="nameCtrl" id="username" type="text">
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input formControlName="emailCtrl" id="email" type="email">
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input formControlName="passwordCtrl" id="password" type="password">
+    </div>
+    <div>
+        <label for="age">Age</label>
+        <input formControlName="ageCtrl" id="age" type="number">
+    </div>
+    <div>
+        <label for="isAdmin">Is user Admin?</label>
+        <input formControlName="isAdminCtrl" id="isAdmin" type="checkbox">
+    </div>
+    
+    <button (click)="registerUser()">Register</button>
 </form>
 
-<button (click)="registerUser()">Register</button>
 
 <h5>{{userRes?.name}}</h5>
 <h5>{{userRes?.email}}</h5>
