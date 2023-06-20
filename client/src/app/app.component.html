@@ -1,35 +1,36 @@
 <form [formGroup]="userFg">
-    <div>
-        <label for="username">Name</label>
-        <input formControlName="nameCtrl" id="username" type="text">
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input formControlName="emailCtrl" id="email" type="email">
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input formControlName="passwordCtrl" id="password" type="password">
-    </div>
-    <div>
-        <label for="age">Age</label>
-        <input formControlName="ageCtrl" id="age" type="number">
-    </div>
-    <div>
-        <label for="isAdmin">Is user Admin?</label>
-        <input formControlName="isAdminCtrl" id="isAdmin" type="checkbox">
-    </div>
-    
-    <button (click)="registerUser()">Register</button>
+    <h2>Create Account</h2>
+    <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input type="text" formControlName="nameCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" formControlName="emailCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" formControlName="passwordCtrl" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input type="number" formControlName="ageCtrl" matInput>
+    </mat-form-field>
+    <mat-checkbox formControlName="isAdminCtrl" [labelPosition]="'before'">
+        Is user Admin?
+    </mat-checkbox>
+
+    <button (click)="registerUser()" mat-raised-button>Register</button>
 </form>
 
-
-<h5>{{userRes?.name}}</h5>
-<h5>{{userRes?.email}}</h5>
-<h5>{{userRes?.password}}</h5>
-<h5>{{userRes?.age}}</h5>
-<h5>{{userRes?.isAdmin}}</h5>
-
+<!-- <section *ngIf="userRes" class="response"> -->
+<section class="response">
+    <h2>{{userRes?.name}}</h2>
+    <h2>{{userRes?.email}}</h2>
+    <h2>{{userRes?.password}}</h2>
+    <h2>{{userRes?.age}}</h2>
+    <h2>{{userRes?.isAdmin}}</h2>
+</section>
 
 
 
@@ -53,6 +54,6 @@
 <!-- <button (click)="registerUser()">Create User</button>
 
 <form [formGroup]="registerFg" (ngSubmit)="registerUser()">
-    <label for="username">User Name</label>
+    <mat-label for="username">User Name</mat-label>
     <input name="username" type="text" formControlName="nameCtrl" placeholder="Enter your name">
 </form> -->
