@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { User } from './models/user.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,72 +10,63 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
 
-  public userRes: User | undefined; // default
-  private userResPrivate: string | undefined;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  public userRes: User | undefined; // default
+  // private userResPrivate: string | undefined;
+
+  constructor(private fb: FormBuilder, private http: HttpClient) {
   }
 
+  //#region Create Form Group/controler (Model)
   userFg = this.fb.group({ // formGroup
-    nameCtrl: ['', [Validators.minLength(3)]], // formControl
-    emailCtrl: ['', [Validators.required]],
+    nameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], // formControl
+    emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
     passwordCtrl: [],
     ageCtrl: [],
     isAdminCtrl: []
   });
+  //#endregion
 
+  //#region Methods
   registerUser(): void {
-
     console.log(this.userFg.value);
-  
-    this.http.post<User>('http://localhost:5000/api/user/register', this.userFg.value).subscribe(
+
+    let user: User = {
+      name: this.NameCtrl.value,
+      email: this.EmailCtrl.value,
+      password: this.PasswordCtrl.value,
+      age: this.AgeCtrl.value,
+      isAdmin: this.IsAdminCtrl.value
+    }
+
+    this.http.post<User>('http://localhost:5000/api/user/register', user).subscribe(
       { next: (res: User) => this.userRes = res },
     );
   }
+  //#endregion
 
 
 
+  //#region Forms Properties
+  // Lab's Info
+  get NameCtrl(): FormControl {
+    return this.userFg.get('nameCtrl') as FormControl;
+  }
+  get EmailCtrl(): FormControl {
+    return this.userFg.get('emailCtrl') as FormControl;
+  }
+  get PasswordCtrl(): FormControl {
+    return this.userFg.get('passwordCtrl') as FormControl;
+  }
+  get AgeCtrl(): FormControl {
+    return this.userFg.get('ageCtrl') as FormControl;
+  }
+  get IsAdminCtrl(): FormControl {
+    return this.userFg.get('isAdminCtrl') as FormControl;
+  }
+  //#endregion
 
-
-
-
-
-
-  // constructor(private http: HttpClient, private fb: FormBuilder) { }
-
-  // //#region Forms Group/controler
-  // registerFg = this.fb.group({
-  //   nameCtrl: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(20)]],
-  //   emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
-  //   passwordCtrl: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(20)]]
-  // });
-  // //#endregion
-
-  // //#region Forms Properties
-  // // Lab's Info
-  // get NameCtrl(): FormControl {
-  //   return this.registerFg.get('nameCtrl') as FormControl;
-  // }
-  // get EmailCtrl(): FormControl {
-  //   return this.registerFg.get('emailCtrl') as FormControl;
-  // }
-  // get PasswordCtrl(): FormControl {
-  //   return this.registerFg.get('passwordCtrl') as FormControl;
-  // }
-  // //#endregion
-
-  // registerUser(): void {
-
-  //   let user: User = {
-  //     name: 'Reza Taba',
-  //     email: 'ParSA@gmail.com',
-  //     password: '109328sdf',
-  //     age: 18,
-  //     isAdmin: true
-  //   }
-
-  //   this.http.post("http://localhost:5000/api/user/register", user).subscribe(response => console.log(response));
-
-  //   console.log(user);
-  // }
+  abstractOutput() {
+    console.log(this.userFg);
+  }
 }
