@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { User } from './models/user.model';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +13,10 @@ export class AppComponent {
   public userRes: User | undefined; // default
   // private userResPrivate: string | undefined;
 
-  constructor(private http: HttpClient, private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient) {
   }
 
-  //#region Forms Group/controler
+  //#region Form Group/controler
   userFg = this.fb.group({ // formGroup
     nameCtrl: ['', [Validators.minLength(3), Validators.maxLength(30)]], // formControl
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
@@ -45,6 +45,8 @@ export class AppComponent {
   }
   //#endregion
 
+
+
   //#region Forms Properties
   // Lab's Info
   get NameCtrl(): FormControl {
@@ -63,4 +65,8 @@ export class AppComponent {
     return this.userFg.get('isAdminCtrl') as FormControl;
   }
   //#endregion
+
+  abstractOutput(){
+    console.log(this.userFg);
+  }
 }

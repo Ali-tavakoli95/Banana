@@ -20,8 +20,13 @@
         Is user Admin?
     </mat-checkbox>
 
-    <button (click)="registerUser()" mat-raised-button>Register</button>
+    <button (click)="registerUser()" color="primary" mat-raised-button [disabled]="userFg.invalid">Register</button>
 </form>
+
+<p>{{userFg.value | json}}</p>
+
+<button (click)="abstractOutput()" mat-raised-button color="warn">Test Abstract</button>
+
 
 <!-- <section *ngIf="userRes" class="response"> -->
 <section class="response">
