@@ -16,9 +16,9 @@ export class AppComponent {
   constructor(private fb: FormBuilder, private http: HttpClient) {
   }
 
-  //#region Form Group/controler
+  //#region Create Form Group/controler (Model)
   userFg = this.fb.group({ // formGroup
-    nameCtrl: ['', [Validators.minLength(3), Validators.maxLength(30)]], // formControl
+    nameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], // formControl
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
     passwordCtrl: [],
     ageCtrl: [],
@@ -28,7 +28,6 @@ export class AppComponent {
 
   //#region Methods
   registerUser(): void {
-
     console.log(this.userFg.value);
 
     let user: User = {
@@ -57,16 +56,16 @@ export class AppComponent {
   }
   get PasswordCtrl(): FormControl {
     return this.userFg.get('passwordCtrl') as FormControl;
-  }  
+  }
   get AgeCtrl(): FormControl {
     return this.userFg.get('ageCtrl') as FormControl;
-  }  
+  }
   get IsAdminCtrl(): FormControl {
     return this.userFg.get('isAdminCtrl') as FormControl;
   }
   //#endregion
 
-  abstractOutput(){
+  abstractOutput() {
     console.log(this.userFg);
   }
 }
