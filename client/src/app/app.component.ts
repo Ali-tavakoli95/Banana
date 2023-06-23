@@ -9,20 +9,19 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  public userRes: User | undefined; // default
+  userRes: User | undefined; // default
   // private userResPrivate: string | undefined;
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
   }
 
-  //#region Create Form Group/controler (Model)
+  //#region Create Form Group/controler (AbstractControl)
   userFg = this.fb.group({ // formGroup
-    nameCtrl: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]], // formControl
+    nameCtrl: ['', [Validators.minLength(3), Validators.maxLength(20)]], // formControl
     emailCtrl: ['', [Validators.required, Validators.pattern(/^([\w\.\-]+)@([\w\-]+)((\.(\w){2,5})+)$/)]],
-    passwordCtrl: [],
-    ageCtrl: [],
-    isAdminCtrl: []
+    passwordCtrl: ['', [Validators.required, Validators.minLength(8)]],
+    ageCtrl: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
+    isAdminCtrl: [false]
   });
   //#endregion
 
@@ -39,12 +38,13 @@ export class AppComponent {
     }
 
     this.http.post<User>('http://localhost:5000/api/user/register', user).subscribe(
-      { next: (res: User) => this.userRes = res },
+      {next: res => {
+        this.userRes = res; 
+        console.log(res);
+      }}
     );
   }
   //#endregion
-
-
 
   //#region Forms Properties
   // Lab's Info
@@ -66,6 +66,6 @@ export class AppComponent {
   //#endregion
 
   abstractOutput() {
-    console.log(this.userFg);
+    console.log(this.EmailCtrl);
   }
 }

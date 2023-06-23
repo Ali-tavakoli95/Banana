@@ -1,6 +1,7 @@
 <!-- <h1>{{userFg.value.nameCtrl}}</h1> -->
 <h2>Value: {{NameCtrl.value}}</h2>
 <h2>Validity: {{NameCtrl.valid}}</h2>
+<h2>Validity: {{NameCtrl.invalid}}</h2>
 <h2>Dirty: {{NameCtrl.dirty}}</h2>
 <h2>Pristine: {{NameCtrl.pristine}}</h2>
 <h2>Touched: {{NameCtrl.touched}}</h2>
@@ -28,7 +29,7 @@
         Is user Admin?
     </mat-checkbox>
 
-    <button (click)="registerUser()" color="primary" mat-raised-button [disabled]="userFg.invalid">Register</button>
+    <button (click)="registerUser()" [disabled]="userFg.invalid" mat-raised-button color="primary">Register</button>
 </form>
 
 <p>{{userFg.value | json}}</p>
@@ -37,12 +38,12 @@
 
 
 <!-- <section *ngIf="userRes" class="response"> -->
-<section class="response">
-    <h2>{{userRes?.name}}</h2>
-    <h2>{{userRes?.email}}</h2>
-    <h2>{{userRes?.password}}</h2>
-    <h2>{{userRes?.age}}</h2>
-    <h2>{{userRes?.isAdmin}}</h2>
+<section class="response" *ngIf="userRes">
+    <h2>{{userRes.name}}</h2>
+    <h2>{{userRes.email}}</h2>
+    <h2>{{userRes.password}}</h2>
+    <h2>{{userRes.age}}</h2>
+    <h2>{{userRes.isAdmin}}</h2>
 </section>
 
 
